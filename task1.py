@@ -11,9 +11,11 @@ humidity = result['main']['humidity']
 pressure = result['main']['pressure']
 city_name_ru = result['name']
 desc = result['weather'][0]['description']
+temp = result['main']['temp']
+feels_like = result['main']['feels_like']
 
-print(f'Погода в городе {city_name_ru} сейчас')
-print()
+print(f'Погода в городе {city_name_ru} сейчас:')
 print(desc)
-print(f'Влажнность:{humidity}')
-
+print(f'Температура: {temp}; ощущается как {feels_like}')
+print(f'Влажность: {humidity}')
+print(f'Давление: {pressure}')
