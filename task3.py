@@ -1,29 +1,33 @@
-from PIL import ImageTk
 import tkinter as tk
+from PIL import ImageTk
 import urllib.request
 import requests
 
+
 def random_img():
-    response = requests.get('https://cataas.com/cat?json=true')
+    response = requests.get('https://cataas.com/cat?type=square&json=true')
     result = response.json()
     url = result['url']
-    return url
+    data = urllib.request.urlopen(url)
+    img = ImageTk.PhotoImage(data=data.read())
+    return img
+
+
+def img_button():
+    img = random_img()
+    img_lbl.configure(image=img)
+    img_lbl.img1 = img #fixes image not updating
+
 
 window = tk.Tk()
-window.geometry('800x500')
-window.title('Anime Girrrls')
+window.geometry('960x640')
+window.title('Cats!')
 
+img1 = random_img()
+img_lbl = tk.Label(window, image=img1)
+img_lbl.pack(fill=tk.BOTH, expand=True,)
 
-url = random_img()
-data = urllib.request.urlopen(url)
-image = ImageTk.PhotoImage(data=data.read())
-img_lbl = tk.Label(window, image=image)
-img_lbl.pack()
-
-# button
-# gen_btn = tk.Button(frame,text= 'Random Image',command=lambda:random_img(bg_img))
-# gen_btn.pack(side=tk.LEFT)
+btn = tk.Button(window, text='Next Cat!', command=img_button)
+btn.pack(side ='bottom', pady=20)
 
 window.mainloop()
-
-
