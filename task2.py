@@ -6,7 +6,6 @@ year = '2025'
 month = 5
 country = 'RU'
 lang = 'ru'
-base_url
 call = f'https://holidayapi.com/v1/holidays?key={key}&country={country}&year={year}&month={month}&pretty'
 
 
