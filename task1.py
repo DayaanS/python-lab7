@@ -1,9 +1,17 @@
 import json
 import requests
 
-city_name = 'Yakutsk'
+url = 'https://api.openweathermap.org/data/2.5/weather'
 key = 'a94852f4cdd3cd587f51b052b74e9847'
-response = requests.post(f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={key}&units=metric&lang=ru')
+city_name = 'Yakutsk'
+params = {
+    'appid': key,
+    'q': city_name,
+    'units': 'metric',
+    'lang': 'ru'
+}
+
+response = requests.post(url, params=params)
 result = json.loads(response.text)
 
 city_name_ru = result['name']
@@ -13,9 +21,7 @@ feels_like = result['main']['feels_like']
 humidity = result['main']['humidity']
 pressure = result['main']['pressure']
 
-
-print(f'Погода в городе {city_name_ru} сейчас:')
-print(desc)
+print(f'Погода в городе {city_name_ru} сейчас: {desc}')
 print(f'Температура: {temp}; ощущается как {feels_like}')
 print(f'Влажность: {humidity}')
 print(f'Давление: {pressure}')

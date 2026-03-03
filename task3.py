@@ -3,12 +3,18 @@ from PIL import ImageTk
 import urllib.request
 import requests
 
+url = 'https://cataas.com/cat'
+params = {
+    'type': 'square',
+    'json': True,
+}
+
 
 def random_img():
-    response = requests.get('https://cataas.com/cat?type=square&json=true')
+    response = requests.get(url, params=params)
     result = response.json()
-    url = result['url']
-    data = urllib.request.urlopen(url)
+    img_url = result['url']
+    data = urllib.request.urlopen(img_url)
     img = ImageTk.PhotoImage(data=data.read())
     return img
 
@@ -20,12 +26,12 @@ def img_button():
 
 
 window = tk.Tk()
-window.geometry('960x640')
+window.geometry('300x300')
 window.title('Cats!')
 
 img1 = random_img()
 img_lbl = tk.Label(window, image=img1)
-img_lbl.pack(fill=tk.BOTH, expand=True,)
+img_lbl.pack(pady=20)
 
 btn = tk.Button(window, text='Next Cat!', command=img_button)
 btn.pack(side ='bottom', pady=20)
