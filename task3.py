@@ -34,6 +34,6 @@ img_lbl = tk.Label(window, image=img1)
 img_lbl.pack(pady=20)
 
 btn = tk.Button(window, text='Next Cat!', command=img_button)
-btn.pack(side ='bottom', pady=20)
+btn.pack(pady=20)
 
 window.mainloop()
