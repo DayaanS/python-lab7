@@ -1,19 +1,28 @@
 import json
 import requests 
+import os
 
-url = 'https://holidayapi.com/v1/holidays'
-key = 'c7325fc7-f04d-4cf8-ad05-4248def845a5'
+URL = 'https://holidayapi.com/v1/holidays'
+key = os.getenv('KEY2')
 params = {
-    'key': 'c7325fc7-f04d-4cf8-ad05-4248def845a5',
+    'key': key,
     'country': 'RU',
     'year': '2025',
-    'month': 2,
     'lang': 'ru',
     'pretty': True,
 }
+limit = 5
 
-response = requests.post(url, params=params)
-result = json.dumps(json.loads(response.text), indent=2)
+response = requests.post(URL, params=params)
+data = json.loads(response.text)
+holidays = data['holidays']
 
-print(result)
+for i in range(len(holidays)):
+    if i > limit:
+        break
+    name = holidays[i]['name']
+    date = holidays[i]['date']
+    weekday = holidays[i]['weekday']['date']['name']
+    print(f'{name}: {date}, {weekday}')    
+
 
